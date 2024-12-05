@@ -3,7 +3,7 @@ def main():
 		# iterate through the update list after the current page
 		# to check that the next page is in the correct order
 		for k in range(len(update)):
-			if int(update[k]) == int(page_ordering[j][1]) and k < i:
+			if update[k] == page_ordering[j][1] and k < i:
 				return False
 		return True
 
@@ -12,22 +12,21 @@ def main():
 		for i in range(len(update)):
 			for j in range(len(page_ordering)):
 				# look into the page_ordering list
-				if int(update[i]) == int(page_ordering[j][0]):
+				if update[i] == page_ordering[j][0]:
 					if check_position(page_ordering, update, i, j) == False:
 						return 0
-		return int(update[len(update) // 2])
+		return update[len(update) // 2]
 
 	result = 0
 
 	with open("input.txt", "r") as file:
 		data = file.read().split("\n-\n")
-		page_ordering = data[0].splitlines()
-		for i in range(len(page_ordering)):
-			page_ordering[i] = page_ordering[i].split('|')
-		updates = data[1].splitlines()
+		page_ordering = [list(map(int, line.split('|'))) for line in data[0].splitlines()]
+		updates = [list(map(int, update.split(','))) for update in data[1].splitlines()]
 
 		for i in range(len(updates)):
-			result += check_order(page_ordering, updates[i].split(','))
+			result += check_order(page_ordering, updates[i])
+
 		print(result)
 
 if __name__ == "__main__":
