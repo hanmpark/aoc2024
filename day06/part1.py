@@ -7,7 +7,6 @@ def main():
 
 	def move_guard(the_map, x, y):
 		# Move the guard and puts X in its path
-		print(f"before position: x={x}, y={y}")
 		direction = {
 			"^": [0, -1],
 			"v": [0, 1],
@@ -34,8 +33,8 @@ def main():
 
 		while has_left_district != 1:
 			moveX, moveY = x + direction[the_map[y][x]][0], y + direction[the_map[y][x]][1]
-			# print(f"la ou il est cense aller: x={moveX}, y={moveY} soit {the_map[moveY][moveX]}")
 			has_left_district = has_left(the_map, x, y, moveX, moveY)
+
 			if has_left_district == 2:
 				continue
 
@@ -45,7 +44,6 @@ def main():
 			if has_left_district == 0:
 				x = moveX
 				y = moveY
-				# print(f"before position: x={x}, y={y}")
 				the_map[y] = the_map[y][:x] + keep_going + the_map[y][x + 1:] # "." -> keep_going "^"
 
 		count = 0
