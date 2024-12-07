@@ -33,8 +33,6 @@ def main():
 	for key in equations:
 		if is_calibration(key, equations[key]):
 			count += key
-		# is_calibration(key, equations[key])
-		# break
 
 	print(count)
 
