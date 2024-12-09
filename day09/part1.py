@@ -32,9 +32,8 @@ def move_block(block):
 def count_block(block):
 	checksum = 0
 	for i in range(len(block)):
-		if block[i] == None:
-			break
-		checksum += i * int(block[i])
+		if block[i] != None:
+			checksum += i * int(block[i])
 	return checksum
 
 def main():
