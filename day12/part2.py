@@ -30,18 +30,18 @@ def count_borders(garden, garden_type, i, j, drct, corner_set):
         # put_in_corner_set.append((ni, nj))
         tmp_corner_set.append((ni, nj))
 
-    for l in range(len(tmp_corner_set)):
-        x, y = tmp_corner_set[l][0]
-        x1, y1 = tmp_corner_set[l][1]
-        x2, y2 = tmp_corner_set[l][2]
-        if not is_side(garden, x1, y1, garden_type) and not is_side(garden, x2, y2, garden_type) and not is_in_corner_set(corner_set, tmp_corner_set[l]):
-            print(f" in corner set: {tmp_corner_set[l]}")
-            corner_set.add(frozenset(tmp_corner_set[l]))
-            count += 1
-        elif is_side(garden, x, y, garden_type) and is_side(garden, x2, y2, garden_type) and not frozenset(tmp_corner_set[l]) in corner_set:
-            print(f" out corner set: {tmp_corner_set[l]}")
-            corner_set.add(frozenset(tmp_corner_set[l]))
-            count += 1
+    x, y = tmp_corner_set[0]
+    x1, y1 = tmp_corner_set[1]
+    x2, y2 = tmp_corner_set[2]
+    # print(f"tmp_corner_set: {tmp_corner_set}")
+    if not is_side(garden, x1, y1, garden_type) and not is_side(garden, x2, y2, garden_type) and not frozenset(tmp_corner_set) in corner_set:
+        print(f" in corner set: {tmp_corner_set}")
+        corner_set.add(frozenset(tmp_corner_set))
+        count += 1
+    elif is_side(garden, x, y, garden_type) and is_side(garden, x2, y2, garden_type) and not frozenset(tmp_corner_set) in corner_set:
+        print(f" out corner set: {tmp_corner_set}")
+        corner_set.add(frozenset(tmp_corner_set))
+        count += 1
 
     return count
 
@@ -73,6 +73,7 @@ def count_fencing_price(garden):
     for i in range(len(garden)):
         for j in range(len(garden[0])):
             if (i, j) not in garden_field:
+                print(f"processing letter: {garden[i][j]}")
                 seen = set()
                 corner_set = set()
                 garden_done += [count_area_price(garden, garden[i][j], i, j, 0, seen, garden_field, corner_set)]
